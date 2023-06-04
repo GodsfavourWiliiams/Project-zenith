@@ -46,7 +46,6 @@ Here's an expanded list of features for Project Zenith:
 - **Task Prioritization**: Allow users to set task priorities (e.g., high, medium, low) to manage and prioritize their workload effectively.
 - **Task Filtering and Sorting**: Implement filters and sorting options to help users find tasks based on various criteria (e.g., status, due date, priority).
 - **Notifications and Reminders**: Send notifications and reminders to users for upcoming task deadlines, task assignments, or any other relevant updates.
-- **Comments and Discussions (pending approval)**: Enable users to leave comments on tasks, facilitating collaboration and communication within the team.
 - **Attachments and File Management**: Allow users to attach files or documents to tasks, ensuring important information is easily accessible and shared within the system.
 - **Personal To-Do Lists**: Provide a separate section for users to manage personal to-do lists and tasks not associated with specific projects or teams.
 - **Task Search**: Implement a search functionality to quickly find tasks or projects based on keywords or specific criteria.
