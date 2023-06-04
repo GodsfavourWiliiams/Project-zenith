@@ -1,4 +1,4 @@
-## Project Zenith
+# **Project Zenith**
 
 Project Zenith is a task management project dashboard designed to improve collaboration, project management, and productivity. With Project Zenith, teams can easily collaborate on tasks, manage projects, and reach new levels of productivity.
 
@@ -12,9 +12,24 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
+Navigate to `http://localhost:3000/`
+
+## Build
+
+Run 
+```bash
+npm run start
+```  
+to build the project.
+
+## Lint
+
+Run 
+```bash 
+npm run lint
+``` 
+to execute lint.
 
 ## Features
 
