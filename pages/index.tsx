@@ -1,21 +1,20 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div className='flex min-h-screen flex-col items-center justify-between p-3'>
       <Head>
         <title>Create Next App</title>
       </Head>
 
-      <main className={styles.main}>
-        <h1 className="text-3xl font-bold underline">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+      <main className='flex flex-1 flex-col items-center justify-center'>
+        <h1 className='text-3xl font-bold underline'>
+          Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
 
-        <p className="mt-3 text-2xl">
+        <p className='mt-3 text-2xl'>
           Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
+          <code className='rounded-md bg-gray-100 p-3 font-mono text-lg'>
             pages/index.js
           </code>
         </p>
