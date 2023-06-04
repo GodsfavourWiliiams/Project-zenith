@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project Zenith
+
+Project Zenith is a task management project dashboard designed to improve collaboration, project management, and productivity. With Project Zenith, teams can easily collaborate on tasks, manage projects, and reach new levels of productivity.
+
+The dashboard is designed with an intuitive and user-friendly interface, making it easy for team members to access project information, track progress, and communicate with each other. Project Zenith also allows for the creation of custom project templates, which can be used to streamline project management processes and ensure consistency across different projects.
+
+[Live Link](https://www.google.com)
 
 ## Getting Started
 
@@ -10,25 +16,54 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Here's an expanded list of features for Project Zenith:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- **User Authentication**: Implement user registration, login, and logout functionality to secure user accounts and provide personalized task management.
+- **User Roles and Permissions**: Assign different roles (e.g., admin, member) to users with varying levels of access and permissions within the system.
+- **Password Reset**: Allow users to reset their passwords in case they forget them, providing a secure and user-friendly password recovery mechanism.
+- **Create Teams and Collaborate**: Enable users to create teams or groups and invite other users to collaborate on projects or tasks together.
+- **Project Management**: Implement features to create, update, and delete projects, including assigning team members, setting due dates, and adding project descriptions.
+- **Task Creation and Assignment**: Allow users to create tasks within projects, assign tasks to team members, set due dates, and add task details.
+- **Task Status and Progress Tracking**: Provide options to mark tasks as complete, track task progress, and view the overall status of tasks and projects.
+- **Task Prioritization**: Allow users to set task priorities (e.g., high, medium, low) to manage and prioritize their workload effectively.
+- **Task Filtering and Sorting**: Implement filters and sorting options to help users find tasks based on various criteria (e.g., status, due date, priority).
+- **Notifications and Reminders**: Send notifications and reminders to users for upcoming task deadlines, task assignments, or any other relevant updates.
+- **Comments and Discussions (pending approval)**: Enable users to leave comments on tasks, facilitating collaboration and communication within the team.
+- **Attachments and File Management**: Allow users to attach files or documents to tasks, ensuring important information is easily accessible and shared within the system.
+- **Personal To-Do Lists**: Provide a separate section for users to manage personal to-do lists and tasks not associated with specific projects or teams.
+- **Task Search**: Implement a search functionality to quickly find tasks or projects based on keywords or specific criteria.
+- **Reporting and Analytics**: Generate reports and visualizations to provide insights into task and project progress, team performance, and other relevant metrics.
+- **Responsive Design**: Ensure the task management system is responsive and works well on different devices, including desktops, tablets, and mobile devices.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Tech Stack
 
-## Learn More
+**Frontend:**
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 13: A React framework that provides server-side rendering, routing, and other helpful features.
+- Redux: A predictable state container for managing application state.
+- Tailwind CSS: A utility-first CSS framework for quickly styling your application.
+- Axios: A popular library for making HTTP requests from the browser.
+- Formik (pending approval): A form library for handling form validation, submission, and management.
+- Yup: A schema validation library to validate form inputs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Backend:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Supabase: An open-source alternative to Firebase that provides a PostgreSQL database with built-in authentication and real-time capabilities.
+- JWT (JSON Web Tokens): A secure method for authentication and authorization.
 
-## Deploy on Vercel
+**Deployment and Hosting:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Vercel: A platform for hosting and deploying Next.js applications.
+- Supabase Hosting: Supabase provides hosting capabilities for static files.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Testing and Quality Assurance:**
+
+- Jest: A popular testing framework for writing unit tests.
+
+**Other Tools and Libraries:**
+
+- ESLint: A popular linting tool for ensuring code quality and following best practices.
+- Prettier: A code formatter for maintaining consistent code style.
+- Husky: A tool for running scripts, such as code linting or testing, before committing code to version control.
