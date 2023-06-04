@@ -1,3 +1,4 @@
+![Project Zenith](https://github.com/GodsfavourWiliiams/Project-zenith/assets/80661256/c4dbf8d0-0298-43d5-8b56-fa839083d3d8)
 # **Project Zenith**
 
 Project Zenith is a task management project dashboard designed to improve collaboration, project management, and productivity. With Project Zenith, teams can easily collaborate on tasks, manage projects, and reach new levels of productivity.
