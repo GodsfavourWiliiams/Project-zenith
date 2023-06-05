@@ -1,6 +1,7 @@
 import Head from 'next/head';
+import { supabase } from './../lib/supabaseClient';
 
-export default function Home() {
+export default function Home({ countries, date }) {
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-3'>
       <Head>
@@ -12,13 +13,30 @@ export default function Home() {
           Welcome to Project Zenith!
         </h1>
 
-        <p className='mt-3 text-2xl'>
-          Get started by editing{' '}
-          <code className='rounded-md bg-gray-100 p-3 font-mono text-lg'>
-            pages/index.js
-          </code>
-        </p>
+        <code className='mt-3 rounded-md bg-gray-100 p-3 font-mono text-lg'>
+          <ul>
+            {countries ? (
+              countries.map((country: any) => (
+                <li key={country.id}>{country.name}</li>
+              ))
+            ) : (
+              <li>No countries available</li>
+            )}
+          </ul>
+        </code>
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  let { data } = await supabase.from('countries').select();
+  let { data: date, error } = await supabase.from('date').select('name');
+
+  return {
+    props: {
+      countries: data,
+      date,
+    },
+  };
 }
