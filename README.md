@@ -20,7 +20,7 @@ Navigate to `http://localhost:3000/`
 
 Run 
 ```bash
-npm run start
+npm run build
 ```  
 to build the project.
 
