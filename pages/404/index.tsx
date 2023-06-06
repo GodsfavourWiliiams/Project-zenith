@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Icon404 } from '../../views/ProviderIcons';
 
-export default function NotFound() {
+export default function Index() {
   return (
     <div className='flex h-screen w-full flex-col items-center justify-center font-mono'>
       <Icon404 />
