@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Icon404 } from './ProviderIcons';
+import { Icon404 } from '../../views/ProviderIcons';
 
 export default function NotFound() {
   return (
