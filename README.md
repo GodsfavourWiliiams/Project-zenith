@@ -5,7 +5,7 @@ Project Zenith is a task management project dashboard designed to improve collab
 
 The dashboard is designed with an intuitive and user-friendly interface, making it easy for team members to access project information, track progress, and communicate with each other. Project Zenith also allows for the creation of custom project templates, which can be used to streamline project management processes and ensure consistency across different projects.
 
-[Live Link](https://www.google.com)
+[Live Link](http://project-zenith.vercel.app)
 
 ## Getting Started
 
