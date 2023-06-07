@@ -1,18 +1,20 @@
 import { DashboardState } from '../action/types';
+import { RootState } from '../action/types';
+import actionTypes from '../action/types';
 
 const initialState: DashboardState = {
-  countries: [],
+  checkBox: false,
 };
 
 const dashboardReducer = (
   state = initialState,
-  action: any
+  actions: any
 ): DashboardState => {
-  switch (action.type) {
-    case 'ADD_COUNTRIES':
+  switch (actions.type) {
+    case actionTypes.SET_CHECKBOX:
       return {
         ...state,
-        countries: action.payload,
+        checkBox: actions.payload,
       };
     default:
       return state;

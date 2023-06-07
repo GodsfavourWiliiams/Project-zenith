@@ -1,11 +1,16 @@
+import React from 'react';
 import Link from 'next/link';
-import { Icon404 } from '../../views/ProviderIcons';
+import { Icon404 } from './ProviderIcons';
 
-export default function Index() {
+type Props = {};
+
+const Index = (props: Props) => {
   return (
-    <div className='flex h-screen w-full flex-col items-center justify-center font-mono'>
-      <Icon404 />
-      <div className='flex flex-col items-center justify-center'>
+    <div className='flex h-screen w-full flex-col items-center justify-center p-4 font-mono'>
+      <div className='w-full sm:w-96'>
+        <Icon404 />
+      </div>
+      <div className='flex flex-col items-center justify-center text-center'>
         <p className='mt-12 text-3xl font-bold text-black md:text-4xl lg:text-5xl'>
           Page Not Found
         </p>
@@ -23,4 +28,6 @@ export default function Index() {
       </div>
     </div>
   );
-}
+};
+
+export default Index;
