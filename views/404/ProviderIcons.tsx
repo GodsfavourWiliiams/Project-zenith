@@ -1,7 +1,6 @@
 export const Icon404 = () => {
   return (
     <svg
-      className='md:1/3 w-1/2 text-blue-600 lg:w-1/4'
       xmlns='http://www.w3.org/2000/svg'
       data-name='Layer 1'
       viewBox='0 0 860.13137 571.14799'
