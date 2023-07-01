@@ -1,14 +1,14 @@
 'use client'; // Error components must be Client Components
 
-import type { ErrorInfo, ReactNode } from 'react';
-import React, { useState } from 'react';
+import type { ReactNode } from 'react';
+// import React, { useState } from 'react';
 
 type ErrorBoundaryProps = {
   children?: ReactNode;
 };
 
 const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
-  const [hasError, setHasError] = useState(false);
+  // const [hasError, setHasError] = useState(false);
 
   const refreshPage = () => {
     window.location.reload();

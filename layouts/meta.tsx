@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
 const Meta = ({ Component }: Props) => {
   // Retrieve the page component file name
   const pageName = Component.name || '';
-
   // Function to generate meta title
   const generateMetaTitle = () => {
     // Convert the file name to a more readable format if needed
