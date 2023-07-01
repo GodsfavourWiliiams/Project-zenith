@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { supabase } from './../lib/supabaseClient';
 import Home from '../views/Home';
 
