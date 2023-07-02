@@ -6,17 +6,19 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-const Login = async () => {
+const Login = () => {
   const supabase = createServerComponentClient({ cookies });
-
-  const { data: session } = await supabase.auth.getSession();
-
-  useEffect(() => {
-    if (session) {
-      redirect('/dashboard');
-    }
-  }, [session]);
   
+  useEffect(() => {
+    const fetchSession = async () => {
+      const { data: session } = await supabase.auth.getSession();
+      if (session) {
+        redirect('/dashboard');
+      }
+    };
+    fetchSession();
+  }, [supabase.auth]);
+
   return (
     <div className='h-full px-4 py-16'>
       <div className='mx-auto flex w-full max-w-md flex-col items-center justify-center'>
@@ -34,6 +36,7 @@ const Login = async () => {
         <p className='mt-4 text-sm font-medium leading-none text-gray-500'>
           Dont have account?{' '}
           <span className='cursor-pointer text-sm font-medium leading-none text-gray-800 underline'>
+            {' '}
             <Link href='/signup'>Sign up here</Link>
           </span>
         </p>
