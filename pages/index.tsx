@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Home from '../views/Home';
 import { supabase } from './../lib/supabaseClient';
@@ -9,7 +9,6 @@ import { redirect } from 'next/navigation';
 
 
 export default async function Index({ countries, date }) {
-  const router = useRouter();
   const { data: session } = await supabase.auth.getSession();
   console.log(countries, date, session);
 
@@ -17,7 +16,7 @@ export default async function Index({ countries, date }) {
     if (session) {
       redirect('/dashboard');
     }
-  }, [session, router]);
+  }, [session]);
 
   return (
     <>
