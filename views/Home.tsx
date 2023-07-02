@@ -27,19 +27,19 @@ const Home = (props: Props) => {
           You can also create your own account and start using Project Zenith
           today!
         </p> */}
-        {props.session ? (
+        {/* {props.session ? (
           <Link href={'/dashboard'}>
             <button className='mt-3 rounded-md bg-black px-5 py-3 text-white'>
               Dashboard
             </button>
           </Link>
-        ) : (
+        ) : ( */}
           <Link href={'/login'}>
             <button className='mt-3 rounded-md bg-black px-5 py-3 text-white'>
               Login
             </button>
           </Link>
-        )}
+        {/* )} */}
       </main>
     </div>
   );
