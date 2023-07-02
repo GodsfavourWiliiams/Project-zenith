@@ -11,6 +11,7 @@ import {
   HomeIcon,
   SettingsIcon,
   LogoutIcon,
+  CloseIcon,
 } from './providerIcons';
 
 interface SidebarProps {
@@ -104,7 +105,7 @@ const Index = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           aria-expanded={sidebarOpen}
           className='block cursor-pointer lg:hidden'
         >
-          {/* <CloseIcon width={40} height={40} color={"292D32"} /> */}
+          <CloseIcon />
         </button>
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
@@ -122,16 +123,7 @@ const Index = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     item: {
                       path: string | UrlObject;
                       icon: any;
-                      name:
-                        | string
-                        | number
-                        | boolean
-                        | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                        | React.ReactFragment
-                        | React.ReactPortal;
+                      name: string
                     },
                     index: React.Key
                   ) => (

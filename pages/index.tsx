@@ -1,8 +1,23 @@
-import { supabase } from './../lib/supabaseClient';
+import { useEffect } from 'react';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+// import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Home from '../views/Home';
+import { supabase } from './../lib/supabaseClient';
+import { redirect } from 'next/navigation';
 
-export default function Index({ countries, date }) {
+
+export default async function Index({ countries, date }) {
+  const { data: session } = await supabase.auth.getSession();
+  console.log(countries, date, session);
+
+  useEffect(() => {
+    if (session) {
+      redirect('/dashboard');
+    }
+  }, [session]);
+
   return (
     <>
       <Head>
@@ -11,14 +26,15 @@ export default function Index({ countries, date }) {
           content='1sh6t8QRUBfF9WzSoGxTch1ilV37MQvTE9h-Yu-rV9M'
         />
       </Head>
-      <Home countries={countries} date={date} />
+      <Home />
     </>
   );
 }
 
 export async function getServerSideProps() {
-  let { data } = await supabase.from('countries').select();
-  let { data: date, error } = await supabase.from('date').select('name');
+  const supabaseClient = createServerComponentClient({ cookies });
+  const { data } = await supabaseClient.from('countries').select();
+  const { data: date } = await supabaseClient.from('date').select('name');
 
   return {
     props: {

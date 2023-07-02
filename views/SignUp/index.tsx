@@ -1,18 +1,120 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState } from 'react';
-import { EyeIcon, GitHubIcon, GoogleIcon } from './ProviderIcons';
+import { EyeIcon } from './ProviderIcons';
+// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FormInput, FormCheckBox } from '../../components/form';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../logic/action/types';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '../../supabase/types/database.types';
+import { toast } from 'react-toastify';
+import { object, string, number, date, InferType } from 'yup';
 
-type SignUpProps = {};
+type FormState = {
+  username: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  hasError: {
+    [key in keyof FormState]?: boolean;
+  };
+};
 
-const SignUp = (props: SignUpProps) => {
+const initialState: FormState = {
+  username: '',
+  firstname: '',
+  lastname: '',
+  email: '',
+  password: '',
+  hasError: {},
+};
+
+let schema = object().shape({
+  username: string().required('Username is required'),
+  firstname: string().required('First name is required'),
+  lastname: string().required('Last name is required'),
+  email: string().email('Invalid email').required('Email is required'),
+  password: string().required('Password is required'),
+});
+
+const SignUp = () => {
   const checkBox = useSelector(
     (state: RootState) => state.dashboardReducer.checkBox
   );
-  console.log(checkBox);
+  const [loading, setLoading] = useState<boolean>(false);
+  const supabase = createClientComponentClient<Database>();
+  const [form, setForm] = useState<FormState>(initialState);
+  const router = useRouter();
+  const [errors, setErrors] = useState<FormState>(initialState);
+
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  
+    if (value === '') {
+      setErrors({ ...errors, hasError: { ...errors.hasError, [name]: true } });
+    } else {
+      setErrors({ ...errors, hasError: { ...errors.hasError, [name]: false } });
+    }
+  };
+  
+
+  const submit = async () => {
+    // if (!schema.isValidSync(form)) return;
+    schema
+    .validate(form, { abortEarly: false })
+    .then(() => {
+      setErrors({ ...errors, hasError: {} });
+    })
+    .catch((err) => {
+      const validationErrorMessages: any = {};
+      err.inner.forEach((error: { path: string | number; message: any }) => {
+        validationErrorMessages[error.path] = error.message;
+        setErrors({ ...errors, hasError: { ...errors.hasError, [error.path]: true } });
+      });
+      setErrors({ ...errors, hasError: validationErrorMessages });
+    });
+    try {
+      if (!checkBox && !form.hasError)
+      return toast.warning('Please agree to the terms and conditions');
+      await schema.validate(form, { abortEarly: false });
+      setLoading(true);
+      const { email, password, firstname, lastname, username } = form;
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : '',
+          data: {
+            first_name: firstname,
+            last_name: lastname,
+            user_name: username,
+          },
+        },
+      });
+      if (error) {
+        throw error;
+      }
+      if (!error && data) {
+        // router.push('/login');
+        toast.success('Registration Successful., Check your email to verify your account');
+      }
+      console.log(data);
+    } catch (error) {
+      toast.error(error.error_description || error.message);
+    } finally {
+      setLoading(false);
+    }
+    router.refresh();
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    router.refresh()
+  }
 
   return (
     <div className='h-full px-4 py-16'>
@@ -35,73 +137,98 @@ const SignUp = (props: SignUpProps) => {
             <Link href='/login'>Login here</Link>
           </span>
         </p>
-        <button
-          aria-label='Continue with google'
-          className='mt-6 flex w-full items-center rounded-md border border-gray-700 px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1'
-        >
-          <GoogleIcon />
-          <p className='ml-4 text-base font-medium text-gray-700'>
-            Continue with Google
-          </p>
-        </button>
-        <button
-          aria-label='Continue with github'
-          className='mt-4  flex w-full items-center rounded-md border border-gray-700 px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-1'
-        >
-          <GitHubIcon />
-          <p className='ml-4 text-base font-medium text-gray-700'>
-            Continue with Github
-          </p>
-        </button>
-
-        <div className='py4 flex w-full items-center justify-between py-5'>
-          <hr className='w-full bg-gray-400' />
-          <p className='px-2.5 text-base font-medium leading-4 text-gray-400'>
-            OR
-          </p>
-          <hr className='w-full bg-gray-400' />
+        <div className='mt-10 grid w-full grid-cols-2 gap-3'>
+          <div className='w-full'>
+            <label className='text-sm font-medium leading-none text-gray-800'>
+              First Name
+            </label>
+            <FormInput
+              name='firstname'
+              type='text'
+              placeHolderClass='placeholder:text-start text-start'
+              value={form.firstname}
+              placeholder='Enter your first name'
+              error={errors.hasError.firstname} // Display error message
+              required
+              onChange={handleChange}
+            />
+          {errors.hasError.firstname && (
+          <p className='text-red-500 text-sm'>{errors.hasError.firstname}</p>
+        )}
+          </div>
+          <div className='w-full'>
+            <label className='text-sm font-medium leading-none text-gray-800'>
+              Last Name
+            </label>
+            <FormInput
+              name='lastname'
+              type='text'
+              placeHolderClass='placeholder:text-start text-start'
+              value={form.lastname}
+              placeholder='Enter your Last name'
+              required
+              onChange={handleChange}
+              error={errors.hasError.lastname} // Display error message
+            />
+            {errors.hasError.lastname && (
+              <p className='text-red-500 text-sm'>{errors.hasError.lastname}</p>
+            )}
+          </div>
         </div>
-        <div className='w-full'>
+        <div className='mt-3 w-full'>
           <label className='text-sm font-medium leading-none text-gray-800'>
             Username
           </label>
           <FormInput
+            name='username'
             type='text'
             placeHolderClass='placeholder:text-start text-start'
-            value={''}
+            value={form.username}
             placeholder='Enter your prefered username'
             required
-            onChange={(e) => e.target.value}
-            iconClass='mt-5'
+            onChange={handleChange}
+            error={errors.hasError.username} // Display error message
           />
+          {errors.hasError.username && (
+            <p className='text-red-500 text-sm'>{errors.hasError.username}</p>
+          )}
         </div>
         <div className='my-3 w-full'>
           <label className='text-sm font-medium leading-none text-gray-800'>
             Email
           </label>
           <FormInput
+            name='email'
             type='email'
             placeHolderClass='placeholder:text-start text-start'
-            value={''}
+            value={form.email}
             placeholder='Enter email adress'
             required
-            onChange={(e) => e.target.value}
-            iconClass='mt-5'
+            onChange={handleChange}
+            error={errors.hasError.email} // Display error message
           />
+          {errors.hasError.email && (
+            <p className='text-red-500 text-sm'>{errors.hasError.email}</p>
+          )}
         </div>
         <div className=' w-full'>
           <label className='text-sm font-medium leading-none text-gray-800'>
             Password
           </label>
           <FormInput
+            name='password'
             type='password'
-            value={''}
+            value={form.password}
             placeholder='Enter password'
             required
-            onChange={(e) => e.target.value}
+            onChange={handleChange}
             iconClass='mt-[28px]'
             rightIcon={<EyeIcon />}
+            error={errors.hasError.password} // Display error message
           />
+          {errors.hasError.password && (
+            <p className='text-red-500 text-sm'>{errors.hasError.password}</p>
+          )}
         </div>
         <div className='mb-5 mt-3 flex w-full items-center justify-start'>
           <FormCheckBox
@@ -110,8 +237,14 @@ const SignUp = (props: SignUpProps) => {
           />
         </div>
         <div className='w-full'>
-          <button className='w-full rounded-md border bg-black py-4 text-sm font-semibold leading-none text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2'>
-            Register Now
+          <button
+            onClick={submit}
+            disabled={loading}
+            className={`flex w-full items-center justify-center rounded-md border py-4 ${
+              loading ? 'bg-slate-700' : 'bg-black'
+            } text-sm font-semibold leading-none text-white `}
+          >
+            {loading ? 'Registering ...' : 'Register Now'}
           </button>
         </div>
       </div>
