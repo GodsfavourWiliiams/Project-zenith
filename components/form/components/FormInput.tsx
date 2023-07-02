@@ -5,6 +5,7 @@ interface FormInputProps {
   placeholder: string;
   type: string;
   value: string;
+  name: string;
   className?: string;
   required?: boolean;
   maxLength?: number;
@@ -13,12 +14,14 @@ interface FormInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   rightIcon?: React.ReactNode | undefined;
   leftIcon?: React.ReactNode | undefined;
+  error?: boolean;
 }
 const FormInput = ({
   label,
   placeholder,
   placeHolderClass,
   type,
+  name,
   value,
   onChange,
   rightIcon,
@@ -27,6 +30,7 @@ const FormInput = ({
   required,
   maxLength,
   iconClass,
+  error,
 }: FormInputProps) => {
   // const [valueState, setValue] = useState(value);
 
@@ -41,9 +45,12 @@ const FormInput = ({
         className={
           className
             ? className
-            : ` ${placeHolderClass} mt-2 w-full rounded-md border bg-gray-100 py-4 pl-3 text-base font-medium leading-none text-gray-800 focus:outline-none`
+            : ` ${placeHolderClass}  ${
+              error ? "border-red-400 border-2" : "border"
+            } mt-2 w-full rounded-md py-4 pl-3 text-base font-normal leading-none text-gray-800 focus:outline-none`
         }
-        // value={valueState}
+        name={name}
+        value={value}
         required={required}
         maxLength={maxLength}
         onChange={onChange}

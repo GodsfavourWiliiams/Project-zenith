@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Header from "../components/header";
 import Sidebar from "../components/sidebar";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -8,9 +11,16 @@ type Props = {
 
 const Index = (props: Props) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const supabase = createServerComponentClient({ cookies });
+
+  // const { data: session } = supabase.auth.getSession();
+  
+  if (!supabase.auth.getSession()) {
+    redirect("/login");
+  }
   
   return (
-    <div className="index">
+    <div className="dashboard">
     {/* <!-- ===== Page Wrapper Start ===== --> */}
     <div className="flex h-screen overflow-hidden">
       {/* <!-- ===== Sidebar Start ===== --> */}
