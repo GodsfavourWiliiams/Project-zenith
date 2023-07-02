@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server'
 import type { Database } from '../../../../supabase/types/database.types';
 
 export async function GET(request: NextRequest) {
-  const requestUrl = new URL(request.url)
+  const requestUrl = new URL('dashboard', request.url)
   const code = requestUrl.searchParams.get('code')
 
   if (code) {
